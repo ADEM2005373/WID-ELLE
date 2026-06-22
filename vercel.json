@@ -1,0 +1,12 @@
+{
+  "routes": [
+    { "src": "/admin", "dest": "/admin/index.html" },
+    { "src": "(.*)", "headers": { "cache-control": "public, max-age=0, must-revalidate" } }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Frame-Options", "value": "DENY" },
+      { "key": "Referrer-Policy", "value": "no-referrer-when-downgrade" }
+    ] }
+  ]
+}

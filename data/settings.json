@@ -1,0 +1,8 @@
+{
+  "adminUser": "admin",
+  "adminPassword": "widelle2025",
+  "storeEmail": "owner@example.com",
+  "currency": "TND",
+  "repoOwner": "your-github-username",
+  "repoName": "your-repo-name"
+}

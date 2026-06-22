@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WID-ELLE — Luxury Bags</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo animated" href="/">WID-ELLE</a>
+      <div class="nav-links">
+        <a href="#collections">Collections</a>
+        <a href="#products">Products</a>
+        <a id="cart-button" href="#">Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </nav>
+    <div class="marquee"><div class="track">Free shipping in Tunisia • New arrivals • Limited editions —  </div></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1>WID-ELLE</h1>
+          <p>Luxury Tunisian bags crafted with femininity and refinement.</p>
+          <a class="btn" href="#products">Shop Now</a>
+        </div>
+        <div class="hero-image" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="collections" class="collections">
+      <h2>Collections</h2>
+      <div id="collections-list" class="collections-list"></div>
+    </section>
+
+    <section id="products" class="products">
+      <h2>Products</h2>
+      <div id="products-list" class="products-grid"></div>
+    </section>
+
+    <section class="testimonials">
+      <h2>Testimonials</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">“A piece of art — timeless.” — A.</div>
+        <div class="testimonial">“Exceptional quality and service.” — M.</div>
+        <div class="testimonial">“The perfect gift.” — S.</div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div>
+        <strong>Join our newsletter</strong>
+        <p>Be the first to know about new collections and exclusive drops.</p>
+      </div>
+      <div style="flex:1;display:flex;gap:.5rem;align-items:center">
+        <input id="newsletter-email" placeholder="Your email" />
+        <button id="newsletter-join" class="btn">Subscribe</button>
+      </div>
+    </section>
+
+    <footer>
+      <div style="max-width:var(--max-width);margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-family:Cormorant Garamond, serif;font-size:1.2rem">WID-ELLE</div>
+          <div>Luxury Tunisian bags</div>
+        </div>
+        <div>© WID-ELLE — All rights reserved</div>
+      </div>
+    </footer>
+  </main>
+
+  <aside id="cart-drawer" class="cart-drawer">
+    <button id="close-cart">Close</button>
+    <h3>Your Cart</h3>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <div>Total: <span id="cart-total">0.00</span></div>
+      <button id="checkout-btn" class="btn">Checkout</button>
+    </div>
+  </aside>
+
+  <template id="product-card-template">
+    <div class="product-card">
+      <div class="product-image"></div>
+      <div class="product-badge"></div>
+      <h3 class="product-name"></h3>
+      <p class="product-desc"></p>
+      <div class="product-meta">
+        <div class="price"></div>
+        <button class="add-to-cart btn">Add</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal" style="display:none">
+    <div class="modal-content card">
+      <button id="checkout-close" class="btn">Close</button>
+      <h3>Checkout</h3>
+      <label>Name<input id="order_name"/></label>
+      <label>Phone<input id="order_phone"/></label>
+      <label>Address<textarea id="order_address"></textarea></label>
+      <label>Notes<textarea id="order_notes"></textarea></label>
+      <div><button id="order_submit" class="btn">Submit Order</button></div>
+    </div>
+  </div>
+
+  <div id="order-success" class="modal" style="display:none"><div class="modal-content card"><button id="order-success-close" class="btn">Close</button><h3>Order Confirmed</h3><p>Thank you — your order has been received.</p></div></div>
+
+
+  <script src="/js/github.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/store.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WID-ELLE Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin">
+  <main class="admin-container">
+    <aside class="admin-sidebar">
+      <h2>Admin</h2>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#orders">Orders</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="/">View Store</a></li>
+        <li><a id="logout" href="#">Logout</a></li>
+      </ul>
+    </aside>
+    <section class="admin-main">
+      <div id="login-panel" class="card">
+        <h3>Admin Login</h3>
+        <label>Username<input id="admin-user" /></label>
+        <label>Password<input id="admin-pass" type="password" /></label>
+        <label>GitHub Token<input id="github-token" placeholder="Personal Access Token for repo edits" /></label>
+        <button id="login-btn" class="btn">Login</button>
+      </div>
+
+      <div id="dashboard" style="display:none">
+        <section id="overview"><h3>Overview</h3><div id="overview-stats"></div><div id="overview-charts" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem"></div></section>
+        <section id="products" class="admin-section"><h3>Products</h3>
+          <button id="add-product" class="btn">Add Product</button>
+          <div id="products-list"></div>
+        </section>
+
+        <section id="collections" class="admin-section"><h3>Collections</h3>
+          <button id="add-collection" class="btn">Add Collection</button>
+          <div id="collections-list"></div>
+        </section>
+
+        <section id="orders" class="admin-section"><h3>Orders</h3>
+          <div id="orders-list"></div>
+        </section>
+
+        <section id="settings" class="admin-section"><h3>Settings</h3>
+          <div id="settings-form"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <template id="product-admin-template">
+    <div class="product-row card">
+      <div class="thumb"></div>
+      <div class="meta"></div>
+      <div class="actions"></div>
+    </div>
+  </template>
+
+  <!-- Modal for forms -->
+  <div id="modal" class="modal" style="display:none">
+    <div class="modal-content card">
+      <button id="modal-close" class="btn">Close</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/js/github.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
