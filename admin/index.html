@@ -9,16 +9,24 @@
 <body class="admin">
   <main class="admin-container">
     <aside class="admin-sidebar">
-      <h2>Admin</h2>
-      <ul>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#collections">Collections</a></li>
-        <li><a href="#orders">Orders</a></li>
-        <li><a href="#settings">Settings</a></li>
-        <li><a href="/">View Store</a></li>
-        <li><a id="logout" href="#">Logout</a></li>
-      </ul>
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar">W</div>
+        <div>
+          <div class="sidebar-username">WID-ELLE</div>
+          <div class="sidebar-role" style="font-size:.85rem;opacity:.85">Administrator</div>
+        </div>
+      </div>
+      <nav class="admin-nav">
+        <ul>
+          <li><a href="#overview"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h8V3H3v10zM13 21h8V11h-8v10zM3 21h8v-6H3v6zM13 3v6h8V3h-8z" fill="currentColor"/></svg></span><span class="label">Overview</span></a></li>
+          <li><a href="#products"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 5h5l-4 4 1 6-5-3-5 3 1-6-4-4h5l3-5z" fill="currentColor"/></svg></span><span class="label">Products</span></a></li>
+          <li><a href="#collections"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" fill="currentColor"/></svg></span><span class="label">Collections</span></a></li>
+          <li><a href="#orders"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm1 4h16l-1 11H5L4 7zm4 3v6h2v-6H8zm4 0v6h2v-6h-2z" fill="currentColor"/></svg></span><span class="label">Orders</span></a></li>
+          <li><a href="#settings"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M19.14 12.936a7.5 7.5 0 000-1.872l2.036-1.58a.5.5 0 00.12-.637l-1.928-3.34a.5.5 0 00-.6-.22l-2.4.96a7.44 7.44 0 00-1.62-.94l-.36-2.54A.5.5 0 0013.48 2h-3.96a.5.5 0 00-.494.426l-.36 2.54a7.44 7.44 0 00-1.62.94l-2.4-.96a.5.5 0 00-.6.22L2.7 8.847a.5.5 0 00.12.637l2.036 1.58a7.5 7.5 0 000 1.872L2.82 14.51a.5.5 0 00-.12.637l1.928 3.34c.14.245.42.353.67.27l2.4-.96c.5.28 1.04.5 1.62.94l.36 2.54c.066.37.38.64.74.64h3.96c.36 0 .674-.27.74-.64l.36-2.54c.58-.44 1.12-.66 1.62-.94l2.4.96c.25.08.53-.02.67-.27l1.928-3.34a.5.5 0 00-.12-.637l-2.036-1.58zM12 15.5A3.5 3.5 0 1112 8.5a3.5 3.5 0 010 7z" fill="currentColor"/></svg></span><span class="label">Settings</span></a></li>
+          <li><a href="/"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L3 7v7c0 5 3 9 9 9s9-4 9-9V7l-9-5z" fill="currentColor"/></svg></span><span class="label">View Store</span></a></li>
+          <li><a id="logout" href="#"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 002-2V5a2 2 0 00-2-2z" fill="currentColor"/></svg></span><span class="label">Logout</span></a></li>
+        </ul>
+      </nav>
     </aside>
     <section class="admin-main">
       <div id="login-panel" class="card">
@@ -29,7 +37,16 @@
         <button id="login-btn" class="btn">Login</button>
       </div>
 
-      <div id="dashboard" style="display:none">
+      <div id="admin-header" class="admin-header" style="display:none">
+        <div class="admin-breadcrumb">Admin • Dashboard</div>
+        <div class="admin-toolbar">
+          <div class="search" role="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><input id="admin-search" placeholder="Search products, collections..." /></div>
+          <button id="admin-save-all" class="btn btn-primary">Save All</button>
+          <a class="btn btn-ghost" href="/" target="_blank">View Store</a>
+        </div>
+      </div>
+
+      <div id="dashboard" class="stagger" style="display:none">
         <section id="overview"><h3>Overview</h3><div id="overview-stats"></div><div id="overview-charts" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem"></div></section>
         <section id="products" class="admin-section"><h3>Products</h3>
           <button id="add-product" class="btn">Add Product</button>
@@ -70,5 +87,6 @@
 
   <script src="/js/github.js"></script>
   <script src="/js/admin.js"></script>
+  <div id="toast" class="toast" aria-live="polite"></div>
 </body>
 </html>
