@@ -14,11 +14,9 @@ function closeModal(){ document.getElementById('modal').style.display = 'none'; 
 async function login(){
   const user = document.getElementById('admin-user').value;
   const pass = document.getElementById('admin-pass').value;
-  const token = document.getElementById('github-token').value;
   const settings = await (async function(){ try{ return await loadSettings(); }catch(e){ try{ const r = await fetch('/data/settings.json',{cache:'no-cache'}); if(r.ok) return await r.json(); }catch(err){} throw e; }})();
   if(user===settings.adminUser && pass===settings.adminPassword){
     sessionStorage.setItem('isAdmin','1');
-    if(token){ setGithubToken(token); }
     showDashboard();
   } else alert('Invalid credentials');
 }
@@ -190,8 +188,6 @@ async function renderSettings(){
   try{ s = await loadSettings(); }catch(e){ try{ const r = await fetch('/data/settings.json',{cache:'no-cache'}); if(r.ok) s = await r.json(); else throw e; }catch(err){ s = {adminUser:'admin', adminPassword:'changeme', storeEmail:'', currency:'TND', repoOwner:'', repoName:''}; }
   }
   const el = document.getElementById('settings-form');
-  // update runtime config
-  if(window.GITHUB_CONFIG){ GITHUB_CONFIG.owner = s.repoOwner || GITHUB_CONFIG.owner; GITHUB_CONFIG.repo = s.repoName || GITHUB_CONFIG.repo; }
   el.innerHTML = `
     <label>Admin User<input id="s_user" value="${escapeHtml(s.adminUser||'')}"/></label>
     <label>Admin Pass<input id="s_pass" value="${escapeHtml(s.adminPassword||'')}"/></label>
@@ -210,13 +206,7 @@ async function renderSettings(){
   });
   document.getElementById('test-github').addEventListener('click',async()=>{
     const out = document.getElementById('github-debug'); out.textContent = 'Testing...';
-    // copy repo values into GITHUB_CONFIG
-    try{ const owner = document.getElementById('s_owner').value; const repo = document.getElementById('s_repo').value; if(owner) GITHUB_CONFIG.owner = owner; if(repo) GITHUB_CONFIG.repo = repo; const token = sessionStorage.getItem('githubToken') || '';
-      if(token) GITHUB_CONFIG.token = token;
-      const res = await testGithubConnection();
-      if(res.ok){ out.textContent = 'SUCCESS:\n' + res.logs.join('\n'); }
-      else{ out.textContent = 'FAILED:\n' + (res.logs||[]).join('\n') + '\nError: ' + (res.error||'unknown'); }
-    }catch(e){ out.textContent = 'Error: '+e.message; }
+    try{ const res = await testGithubConnection(); if(res.ok){ out.textContent = 'SUCCESS:\n' + res.logs.join('\n'); } else{ out.textContent = 'FAILED:\n' + (res.logs||[]).join('\n') + '\nError: ' + (res.error||'unknown'); } }catch(e){ out.textContent = 'Error: '+e.message; }
   });
 }
 
@@ -282,7 +272,7 @@ function createSVGBar(title, labels, values, color){
 
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('login-btn').addEventListener('click',()=>login());
-  document.getElementById('logout').addEventListener('click',()=>{ sessionStorage.removeItem('isAdmin'); sessionStorage.removeItem('githubToken'); location.reload(); });
+  document.getElementById('logout').addEventListener('click',()=>{ sessionStorage.removeItem('isAdmin'); location.reload(); });
   document.getElementById('add-product').addEventListener('click',()=>openAddProduct());
   document.getElementById('add-collection').addEventListener('click',()=>openAddCollection());
   // if already logged in, show dashboard
