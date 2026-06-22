@@ -15,10 +15,10 @@ async function login(){
   const user = document.getElementById('admin-user').value;
   const pass = document.getElementById('admin-pass').value;
   const token = document.getElementById('github-token').value;
-  const settings = await loadSettings();
+  const settings = await (async function(){ try{ return await loadSettings(); }catch(e){ try{ const r = await fetch('/data/settings.json',{cache:'no-cache'}); if(r.ok) return await r.json(); }catch(err){} throw e; }})();
   if(user===settings.adminUser && pass===settings.adminPassword){
     sessionStorage.setItem('isAdmin','1');
-    if(token) sessionStorage.setItem('githubToken', token);
+    if(token){ setGithubToken(token); }
     showDashboard();
   } else alert('Invalid credentials');
 }
@@ -85,11 +85,11 @@ function viewOrder(id){
   openModal(`<h3>Order ${o.id}</h3><pre>${JSON.stringify(o,null,2)}</pre><div><button id="change-status" class="btn">Toggle Confirmed</button></div>`);
   document.getElementById('change-status').addEventListener('click',async()=>{
     o.status = o.status==='Confirmed' ? 'Pending' : 'Confirmed';
-    await saveOrders(_orders); closeModal(); refreshOrders();
+    try{ await saveOrders(_orders); closeModal(); refreshOrders(); }catch(e){ console.error('Update order failed',e); alert('Update failed: '+e.message); }
   });
 }
 
-async function deleteOrder(id){ if(!confirm('Delete order?')) return; _orders = _orders.filter(o=>o.id!==id); await saveOrders(_orders); refreshOrders(); }
+async function deleteOrder(id){ if(!confirm('Delete order?')) return; _orders = _orders.filter(o=>o.id!==id); try{ await saveOrders(_orders); refreshOrders(); }catch(e){ console.error('Delete order failed',e); alert('Delete failed: '+e.message); } }
 
 function uid(prefix='id'){ return prefix+Math.random().toString(36).slice(2,9); }
 
@@ -116,10 +116,9 @@ function openAddProduct(){
     let b64 = '';
     if(file){ b64 = await fileToBase64(file); }
     const prod = { id: uid('prod-'), name, price, currency:'TND', collection, badge, description:desc, imageBase64: b64 };
-    _products.push(prod);
-    await saveProducts(_products);
-    closeModal();
-    refreshProducts();
+      _products.push(prod);
+      try{ await saveProducts(_products); closeModal(); refreshProducts(); }
+      catch(e){ console.error('Save product failed', e); alert('Save failed: '+e.message); }
   });
 }
 
@@ -136,7 +135,7 @@ function openEditProduct(id){
     <div><button id="p_save" class="btn">Save</button> <button id="p_delete" class="btn">Delete</button></div>
   `;
   openModal(html);
-  document.getElementById('p_delete').addEventListener('click',async()=>{ if(confirm('Delete product?')){ _products=_products.filter(x=>x.id!==id); await saveProducts(_products); closeModal(); refreshProducts(); } });
+    document.getElementById('p_delete').addEventListener('click',async()=>{ if(confirm('Delete product?')){ _products=_products.filter(x=>x.id!==id); try{ await saveProducts(_products); closeModal(); refreshProducts(); }catch(e){ console.error('Delete product failed',e); alert('Delete failed: '+e.message); } } });
   document.getElementById('p_save').addEventListener('click',async()=>{
     p.name = document.getElementById('p_name').value;
     p.price = parseFloat(document.getElementById('p_price').value)||0;
@@ -164,7 +163,7 @@ function openAddCollection(){
   openModal(html);
   document.getElementById('c_save').addEventListener('click',async()=>{
     const c = { id: uid('col-'), name: document.getElementById('c_name').value, subtitle: document.getElementById('c_sub').value, emoji: document.getElementById('c_emoji').value };
-    _collections.push(c); await saveCollections(_collections); closeModal(); refreshCollections();
+      _collections.push(c); try{ await saveCollections(_collections); closeModal(); refreshCollections(); }catch(e){ console.error('Save collection failed',e); alert('Save failed: '+e.message); }
   });
 }
 
@@ -178,14 +177,48 @@ function openEditCollection(id){
     <div><button id="c_save" class="btn">Save</button> <button id="c_del" class="btn">Delete</button></div>
   `;
   openModal(html);
-  document.getElementById('c_del').addEventListener('click',async()=>{ if(confirm('Delete collection?')){ _collections=_collections.filter(x=>x.id!==id); await saveCollections(_collections); closeModal(); refreshCollections(); } });
+    document.getElementById('c_del').addEventListener('click',async()=>{ if(confirm('Delete collection?')){ _collections=_collections.filter(x=>x.id!==id); try{ await saveCollections(_collections); closeModal(); refreshCollections(); }catch(e){ console.error('Delete collection failed',e); alert('Delete failed: '+e.message); } } });
   document.getElementById('c_save').addEventListener('click',async()=>{ c.name=document.getElementById('c_name').value; c.subtitle=document.getElementById('c_sub').value; c.emoji=document.getElementById('c_emoji').value; await saveCollections(_collections); closeModal(); refreshCollections(); });
 }
 
 async function deleteCollection(id){ if(!confirm('Delete collection?')) return; _collections = _collections.filter(c=>c.id!==id); await saveCollections(_collections); refreshCollections(); }
 
 // Settings
-async function renderSettings(){ const s = await loadSettings(); const el = document.getElementById('settings-form'); el.innerHTML = `<label>Admin User<input id="s_user" value="${escapeHtml(s.adminUser||'')}"/></label><label>Admin Pass<input id="s_pass" value="${escapeHtml(s.adminPassword||'')}"/></label><label>Store Email<input id="s_email" value="${escapeHtml(s.storeEmail||'')}"/></label><label>Currency<input id="s_currency" value="${escapeHtml(s.currency||'TND')}"/></label><label>Repo Owner<input id="s_owner" value="${escapeHtml(s.repoOwner||'')}"/></label><label>Repo Name<input id="s_repo" value="${escapeHtml(s.repoName||'')}"/></label><div><button id="s_save" class="btn">Save Settings</button></div>`; document.getElementById('s_save').addEventListener('click',async()=>{ s.adminUser=document.getElementById('s_user').value; s.adminPassword=document.getElementById('s_pass').value; s.storeEmail=document.getElementById('s_email').value; s.currency=document.getElementById('s_currency').value; s.repoOwner=document.getElementById('s_owner').value; s.repoName=document.getElementById('s_repo').value; await saveSettings(s); alert('Saved'); renderSettings(); }); }
+async function renderSettings(){
+  // try GitHub-backed settings, fall back to local file
+  let s;
+  try{ s = await loadSettings(); }catch(e){ try{ const r = await fetch('/data/settings.json',{cache:'no-cache'}); if(r.ok) s = await r.json(); else throw e; }catch(err){ s = {adminUser:'admin', adminPassword:'changeme', storeEmail:'', currency:'TND', repoOwner:'', repoName:''}; }
+  }
+  const el = document.getElementById('settings-form');
+  // update runtime config
+  if(window.GITHUB_CONFIG){ GITHUB_CONFIG.owner = s.repoOwner || GITHUB_CONFIG.owner; GITHUB_CONFIG.repo = s.repoName || GITHUB_CONFIG.repo; }
+  el.innerHTML = `
+    <label>Admin User<input id="s_user" value="${escapeHtml(s.adminUser||'')}"/></label>
+    <label>Admin Pass<input id="s_pass" value="${escapeHtml(s.adminPassword||'')}"/></label>
+    <label>Store Email<input id="s_email" value="${escapeHtml(s.storeEmail||'')}"/></label>
+    <label>Currency<input id="s_currency" value="${escapeHtml(s.currency||'TND')}"/></label>
+    <label>Repo Owner<input id="s_owner" value="${escapeHtml(s.repoOwner||'')}"/></label>
+    <label>Repo Name<input id="s_repo" value="${escapeHtml(s.repoName||'')}"/></label>
+    <div style="margin-top:12px"><button id="s_save" class="btn">Save Settings</button></div>
+    <hr />
+    <h4>GitHub Debug</h4>
+    <div><button id="test-github" class="btn">Test GitHub Connection</button></div>
+    <pre id="github-debug" style="white-space:pre-wrap;margin-top:12px;background:#f7f5f4;padding:12px;border-radius:8px;max-height:220px;overflow:auto"></pre>
+  `;
+  document.getElementById('s_save').addEventListener('click',async()=>{
+    s.adminUser=document.getElementById('s_user').value; s.adminPassword=document.getElementById('s_pass').value; s.storeEmail=document.getElementById('s_email').value; s.currency=document.getElementById('s_currency').value; s.repoOwner=document.getElementById('s_owner').value; s.repoName=document.getElementById('s_repo').value; try{ await saveSettings(s); alert('Saved'); renderSettings(); }catch(err){ alert('Save failed: '+err.message); }
+  });
+  document.getElementById('test-github').addEventListener('click',async()=>{
+    const out = document.getElementById('github-debug'); out.textContent = 'Testing...';
+    // copy repo values into GITHUB_CONFIG
+    try{ const owner = document.getElementById('s_owner').value; const repo = document.getElementById('s_repo').value; if(owner) GITHUB_CONFIG.owner = owner; if(repo) GITHUB_CONFIG.repo = repo; const token = sessionStorage.getItem('githubToken') || '';
+      if(token) GITHUB_CONFIG.token = token;
+      const res = await testGithubConnection();
+      if(res.ok){ out.textContent = 'SUCCESS:\n' + res.logs.join('\n'); }
+      else{ out.textContent = 'FAILED:\n' + (res.logs||[]).join('\n') + '\nError: ' + (res.error||'unknown'); }
+    }catch(e){ out.textContent = 'Error: '+e.message; }
+  });
+}
 
 // Orders and CSV handled above
 

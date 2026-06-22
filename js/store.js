@@ -6,21 +6,23 @@ async function render(){
   productsList.innerHTML=''; collList.innerHTML='';
 
   // build collection buttons with counts
-  const allBtn = document.createElement('button'); allBtn.className='card active'; allBtn.textContent='All'; allBtn.dataset.collection = '';
+    const allBtn = document.createElement('button'); allBtn.className='card active reveal'; allBtn.textContent='All'; allBtn.dataset.collection = '';
   allBtn.addEventListener('click',()=>applyCollectionFilter(''));
   collList.appendChild(allBtn);
   collections.forEach(c=>{
     const count = products.filter(p=>p.collection===c.id).length;
     const el = document.createElement('button'); el.className='card'; el.innerHTML = `${c.emoji||''} ${c.name} <small>(${count})</small>`;
     el.dataset.collection = c.id;
-    el.addEventListener('click',()=>applyCollectionFilter(c.id));
+      el.addEventListener('click',()=>applyCollectionFilter(c.id));
+      el.classList.add('reveal');
     collList.appendChild(el);
   });
 
   products.forEach(p=>{
     const tpl = document.getElementById('product-card-template');
     const node = tpl.content.cloneNode(true);
-    node.querySelector('.product-card').dataset.collection = p.collection || '';
+      const cardEl = node.querySelector('.product-card');
+      if(cardEl) cardEl.classList.add('reveal');
     node.querySelector('.product-name').textContent = p.name;
     node.querySelector('.product-desc').textContent = p.description||'';
     node.querySelector('.price').textContent = (p.price||0).toFixed(2)+ ' ' + (p.currency||'TND');

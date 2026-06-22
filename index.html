@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>WID-ELLE — Luxury Bags</title>
+  <meta name="theme-color" content="#FAF6F2">
+  <!-- Typography: Cormorant Garamond for headings, Jost for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -22,13 +25,23 @@
   <main>
     <section class="hero">
       <div class="hero-grid">
-        <div class="hero-text">
+          <div class="hero-text reveal">
           <h1>WID-ELLE</h1>
           <p>Luxury Tunisian bags crafted with femininity and refinement.</p>
           <a class="btn" href="#products">Shop Now</a>
         </div>
-        <div class="hero-image" aria-hidden="true"></div>
+          <div class="hero-image" aria-hidden="true"></div>
       </div>
+        <!-- decorative gold SVG overlay -->
+        <svg class="hero-decor" width="600" height="600" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0%" stop-color="#C4A882" stop-opacity="0.12" />
+              <stop offset="100%" stop-color="#C4A882" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <circle cx="520" cy="80" r="180" fill="url(#g1)" />
+        </svg>
     </section>
 
     <section id="collections" class="collections">
@@ -111,6 +124,7 @@
   <div id="order-success" class="modal" style="display:none"><div class="modal-content card"><button id="order-success-close" class="btn">Close</button><h3>Order Confirmed</h3><p>Thank you — your order has been received.</p></div></div>
 
 
+  <script src="/js/ux.js"></script>
   <script src="/js/github.js"></script>
   <script src="/js/cart.js"></script>
   <script src="/js/store.js"></script>
