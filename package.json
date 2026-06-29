@@ -1,0 +1,16 @@
+{
+  "name": "wid-elle",
+  "version": "1.0.0",
+  "description": "WID-ELLE — Luxury Handbag E-Commerce Platform",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}

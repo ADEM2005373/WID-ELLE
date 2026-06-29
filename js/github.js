@@ -23,15 +23,41 @@ async function apiWrite(path, contentString, message){
 
 // Local-first loaders: read from deployed /data files for visitors; writes go through serverless write
 async function loadLocalJSON(path){
-  const res = await fetch('/' + path, { cache: 'no-cache' });
-  if(!res.ok) throw new Error('Local read failed');
-  return res.json();
+  // Try a direct fetch with no-store first
+  try{
+    const url = '/' + path;
+    let res = await fetch(url, { cache: 'no-store' });
+    if(res && res.status===200){ return await res.json(); }
+    // If we get a 304 or other non-200, attempt a cache-busting fetch
+    if(window.DEBUG) console.warn('Local fetch returned', res && res.status, '– retrying with cache-bust');
+    const res2 = await fetch(url + '?_=' + Date.now(), { cache: 'no-store' });
+    if(res2 && res2.ok){ return await res2.json(); }
+    throw new Error('Local read failed: ' + (res2 ? res2.status : 'no-response'));
+  }catch(err){
+    if(window.DEBUG) console.error('loadLocalJSON error for', path, err);
+    throw err;
+  }
 }
 
 async function loadProducts(){ try{ return await loadLocalJSON('data/products.json'); }catch(e){ return await apiRead('data/products.json'); } }
 async function saveProducts(products){ return await apiWrite('data/products.json', JSON.stringify(products, null, 2), 'Update products'); }
 async function loadCollections(){ try{ return await loadLocalJSON('data/collections.json'); }catch(e){ return await apiRead('data/collections.json'); } }
 async function saveCollections(collections){ return await apiWrite('data/collections.json', JSON.stringify(collections, null, 2), 'Update collections'); }
+
+// Debug wrappers (set window.DEBUG = true in console to enable)
+const _loadProducts = loadProducts;
+const _loadCollections = loadCollections;
+window.DEBUG = window.DEBUG || false;
+loadProducts = async function(){
+  const data = await _loadProducts();
+  if(window.DEBUG) console.log('DEBUG: loadProducts ->', data);
+  return data;
+}
+loadCollections = async function(){
+  const data = await _loadCollections();
+  if(window.DEBUG) console.log('DEBUG: loadCollections ->', data);
+  return data;
+}
 async function loadOrders(){ try{ return await loadLocalJSON('data/orders.json'); }catch(e){ return await apiRead('data/orders.json'); } }
 async function saveOrders(orders){ return await apiWrite('data/orders.json', JSON.stringify(orders, null, 2), 'Update orders'); }
 async function loadSettings(){ try{ return await loadLocalJSON('data/settings.json'); }catch(e){ return await apiRead('data/settings.json'); } }

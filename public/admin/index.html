@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration — WID-ELLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <p class="login-logo">WID-ELLE</p>
+      <h1 class="login-title">Administration</h1>
+      <div class="form-group">
+        <label class="form-label">Identifiant</label>
+        <input type="text" class="form-input" id="loginUser" value="admin" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe</label>
+        <input type="password" class="form-input" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()" />
+      </div>
+      <p class="login-error hidden" id="loginError">Identifiants incorrects.</p>
+      <button class="btn-primary full-width" id="loginBtn" onclick="doLogin()">Se connecter</button>
+      <a href="/" class="login-back">← Retour à la boutique</a>
+    </div>
+  </div>
+
+  <!-- ADMIN LAYOUT -->
+  <div id="adminLayout" class="admin-layout hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">WID-ELLE</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" data-section="overview" onclick="showSection('overview')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Aperçu
+        </a>
+        <a class="sidebar-link" data-section="products" onclick="showSection('products')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+          Produits
+        </a>
+        <a class="sidebar-link" data-section="collections" onclick="showSection('collections')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Collections
+        </a>
+        <a class="sidebar-link" data-section="orders" onclick="showSection('orders')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg>
+          Commandes
+        </a>
+        <a class="sidebar-link" data-section="settings" onclick="showSection('settings')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Paramètres
+        </a>
+        <a class="sidebar-link" data-section="debug" onclick="showSection('debug')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Diagnostic
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button onclick="doLogout()" class="logout-btn">Déconnexion</button>
+        <a href="/" class="sidebar-store-link">← Boutique</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- OVERVIEW -->
+      <section id="sec-overview" class="admin-section">
+        <div class="section-head">
+          <h2 class="section-title">Aperçu</h2>
+          <p class="section-sub">Bienvenue dans votre espace d'administration WID-ELLE.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <p class="stat-label">Produits</p>
+            <p class="stat-value" id="statProducts">—</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Collections</p>
+            <p class="stat-value" id="statCollections">—</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Commandes</p>
+            <p class="stat-value" id="statOrders">—</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Commandes en attente</p>
+            <p class="stat-value" id="statPending">—</p>
+          </div>
+        </div>
+        <div class="recent-orders-wrap">
+          <h3 class="admin-subtitle">Dernières commandes</h3>
+          <div id="recentOrders" class="table-wrap"></div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section id="sec-products" class="admin-section hidden">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Produits</h2>
+            <p class="section-sub" id="productCount">Chargement…</p>
+          </div>
+          <button class="btn-primary" onclick="openProductModal()">+ Nouveau produit</button>
+        </div>
+        <div id="productsTable" class="table-wrap"></div>
+      </section>
+
+      <!-- COLLECTIONS -->
+      <section id="sec-collections" class="admin-section hidden">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Collections</h2>
+            <p class="section-sub" id="collectionCount">Chargement…</p>
+          </div>
+          <button class="btn-primary" onclick="openCollectionModal()">+ Nouvelle collection</button>
+        </div>
+        <div id="collectionsTable" class="table-wrap"></div>
+      </section>
+
+      <!-- ORDERS -->
+      <section id="sec-orders" class="admin-section hidden">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Commandes</h2>
+            <p class="section-sub" id="orderCount">Chargement…</p>
+          </div>
+          <div style="display:flex;gap:12px">
+            <button class="btn-outline" onclick="exportOrdersCSV()">Exporter CSV</button>
+            <button class="btn-outline" onclick="printOrders()">Imprimer</button>
+          </div>
+        </div>
+        <div id="ordersTable" class="table-wrap"></div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="sec-settings" class="admin-section hidden">
+        <div class="section-head">
+          <h2 class="section-title">Paramètres</h2>
+        </div>
+        <div class="settings-card">
+          <div class="form-group">
+            <label class="form-label">Email de la boutique</label>
+            <input type="email" class="form-input" id="setEmail" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Devise</label>
+            <select class="form-input" id="setCurrency">
+              <option value="TND">TND — Dinar Tunisien</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="USD">USD — Dollar</option>
+            </select>
+          </div>
+          <hr class="divider" />
+          <h3 class="admin-subtitle">Changer le mot de passe</h3>
+          <div class="form-group">
+            <label class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-input" id="setNewPass" placeholder="Laisser vide pour ne pas changer" />
+          </div>
+          <p class="save-msg hidden" id="settingsSaveMsg"></p>
+          <button class="btn-primary" onclick="saveSettings()">Sauvegarder</button>
+        </div>
+      </section>
+
+      <!-- DEBUG -->
+      <section id="sec-debug" class="admin-section hidden">
+        <div class="section-head">
+          <h2 class="section-title">Diagnostic</h2>
+          <button class="btn-primary" onclick="runDebug()">Relancer</button>
+        </div>
+        <div id="debugOutput" class="debug-output">Chargement du diagnostic…</div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay" id="productModalOverlay" onclick="closeProductModal(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="productModalTitle">Nouveau produit</h3>
+        <button class="modal-close" onclick="closeProductModalDirect()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="pmId" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nom *</label>
+            <input type="text" class="form-input" id="pmName" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Prix *</label>
+            <input type="number" class="form-input" id="pmPrice" min="0" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Collection</label>
+            <select class="form-input" id="pmCollection"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Badge (ex: New, Bestseller)</label>
+            <input type="text" class="form-input" id="pmBadge" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-input" id="pmDesc" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image</label>
+          <input type="file" class="form-input" id="pmImageFile" accept="image/*" onchange="handleImageUpload(event)" />
+          <div id="pmImagePreview" class="image-preview hidden"></div>
+          <input type="hidden" id="pmImage" />
+        </div>
+        <p class="form-error hidden" id="pmError"></p>
+        <div class="modal-actions">
+          <button class="btn-outline" onclick="closeProductModalDirect()">Annuler</button>
+          <button class="btn-primary" onclick="saveProduct()">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLECTION MODAL -->
+  <div class="modal-overlay" id="collectionModalOverlay" onclick="closeCollectionModal(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="collectionModalTitle">Nouvelle collection</h3>
+        <button class="modal-close" onclick="closeCollectionModalDirect()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="cmId" />
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input type="text" class="form-input" id="cmName" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-input" id="cmDesc" rows="3"></textarea>
+        </div>
+        <p class="form-error hidden" id="cmError"></p>
+        <div class="modal-actions">
+          <button class="btn-outline" onclick="closeCollectionModalDirect()">Annuler</button>
+          <button class="btn-primary" onclick="saveCollection()">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER STATUS MODAL -->
+  <div class="modal-overlay" id="orderStatusOverlay" onclick="closeOrderStatus(event)">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3 class="modal-title">Mettre à jour le statut</h3>
+        <button class="modal-close" onclick="closeOrderStatusDirect()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="osOrderId" />
+        <div class="form-group">
+          <label class="form-label">Statut de la commande</label>
+          <select class="form-input" id="osStatus">
+            <option value="pending">En attente</option>
+            <option value="confirmed">Confirmée</option>
+            <option value="shipped">Expédiée</option>
+            <option value="delivered">Livrée</option>
+            <option value="cancelled">Annulée</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-outline" onclick="closeOrderStatusDirect()">Annuler</button>
+          <button class="btn-primary" onclick="updateOrderStatus()">Mettre à jour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

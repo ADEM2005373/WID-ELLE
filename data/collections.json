@@ -1,8 +1,20 @@
 [
   {
-    "id": "classic",
-    "name": "wided",
-    "subtitle": "kjjj",
-    "emoji": "🌸"
+    "id": "col001",
+    "name": "Signature",
+    "description": "Les pièces iconiques de la maison WID-ELLE. Intemporelles, raffinées, impeccables.",
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "col002",
+    "name": "Printemps",
+    "description": "Une collection légère et romantique, inspirée des fleurs de Tunisie en plein éveil.",
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "col003",
+    "name": "Désert",
+    "description": "La chaleur du Sahara sublimée en cuir. Teintes sablées et textures naturelles.",
+    "createdAt": "2025-01-01T00:00:00.000Z"
   }
 ]

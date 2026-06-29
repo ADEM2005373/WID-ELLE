@@ -1,14 +1,18 @@
 async function render(){
+  if(window.DEBUG) console.log('DEBUG: store.render start');
   const products = await loadProducts();
   const collections = await loadCollections();
+  if(window.DEBUG){ console.log('Products loaded:', products); console.log('Collections loaded:', collections); }
   const productsList = document.getElementById('products-list');
   const collList = document.getElementById('collections-list');
+  if(window.DEBUG){ console.log('productsList element:', productsList); console.log('collList element:', collList); }
   productsList.innerHTML=''; collList.innerHTML='';
 
   // build collection buttons with counts
     const allBtn = document.createElement('button'); allBtn.className='card active reveal'; allBtn.textContent='All'; allBtn.dataset.collection = '';
   allBtn.addEventListener('click',()=>applyCollectionFilter(''));
   collList.appendChild(allBtn);
+  if(window.DEBUG) console.log('Rendering collections - count:', (collections && collections.length) || 0);
   collections.forEach(c=>{
     const count = products.filter(p=>p.collection===c.id).length;
     const el = document.createElement('button'); el.className='card'; el.innerHTML = `${c.emoji||''} ${c.name} <small>(${count})</small>`;

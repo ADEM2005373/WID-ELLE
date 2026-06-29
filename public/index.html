@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WID-ELLE — Maroquinerie de Luxe Tunisienne</title>
+  <meta name="description" content="WID-ELLE, maison tunisienne de maroquinerie féminine de luxe. Sacs faits main en cuir pleine fleur. Livraison en Tunisie." />
+  <meta name="theme-color" content="#7B4A5A" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/store.css" />
+</head>
+<body>
+
+  <!-- SHIPPING BANNER -->
+  <div class="shipping-banner">
+    ✦ Livraison gratuite en Tunisie dès 300 TND d'achat ✦
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <a href="#products" class="nav-link">Boutique</a>
+        <a href="#collections" class="nav-link">Collections</a>
+        <a href="#savoir-faire" class="nav-link">Savoir-faire</a>
+      </div>
+      <a href="/" class="navbar-logo">WID-ELLE</a>
+      <div class="navbar-right">
+        <a href="#about" class="nav-link">À propos</a>
+        <button class="cart-btn" id="cartBtn" aria-label="Panier">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal">Maison Tunisienne · Fondée en 2020</p>
+      <h1 class="hero-title reveal reveal-delay-1">L'élégance<br /><em>à portée de main</em></h1>
+      <p class="hero-sub reveal reveal-delay-2">Sacs en cuir pleine fleur, façonnés à la main<br />pour la femme qui sait ce qu'elle veut.</p>
+      <div class="reveal reveal-delay-3" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <a href="#products" class="btn-primary">Découvrir la collection</a>
+        <a href="#savoir-faire" class="hero-link">Notre savoir-faire →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-monogram">W</div>
+      <div class="hero-scroll">
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="1" width="14" height="22" rx="7"/>
+          <line x1="8" y1="6" x2="8" y2="10"/>
+        </svg>
+        <span>Défiler</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Cuir Pleine Fleur</span><span class="marquee-dot">◆</span>
+      <span>Fait Main</span><span class="marquee-dot">◆</span>
+      <span>Maison Tunisienne</span><span class="marquee-dot">◆</span>
+      <span>Luxe Accessible</span><span class="marquee-dot">◆</span>
+      <span>Pièces Signature</span><span class="marquee-dot">◆</span>
+      <span>Livraison Tunisie</span><span class="marquee-dot">◆</span>
+      <span>Artisanat d'Exception</span><span class="marquee-dot">◆</span>
+      <span>Coutures Main</span><span class="marquee-dot">◆</span>
+      <span>Cuir Pleine Fleur</span><span class="marquee-dot">◆</span>
+      <span>Fait Main</span><span class="marquee-dot">◆</span>
+      <span>Maison Tunisienne</span><span class="marquee-dot">◆</span>
+      <span>Luxe Accessible</span><span class="marquee-dot">◆</span>
+      <span>Pièces Signature</span><span class="marquee-dot">◆</span>
+      <span>Livraison Tunisie</span><span class="marquee-dot">◆</span>
+      <span>Artisanat d'Exception</span><span class="marquee-dot">◆</span>
+      <span>Coutures Main</span><span class="marquee-dot">◆</span>
+    </div>
+  </div>
+
+  <!-- COLLECTIONS -->
+  <section class="section" id="collections">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Nos Collections</p>
+        <h2 class="section-title reveal reveal-delay-1">Chaque collection,<br />une histoire</h2>
+      </div>
+      <div class="collections-grid" id="collectionsGrid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section section-cream" id="products">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">La Boutique</p>
+        <h2 class="section-title reveal reveal-delay-1">Nos créations</h2>
+        <p class="section-sub reveal reveal-delay-2" style="max-width:480px;margin:0 auto">Chaque sac est une pièce unique, taillée avec passion dans les meilleurs cuirs.</p>
+      </div>
+      <div class="filter-bar reveal" id="filterBar">
+        <button class="filter-btn active" data-collection="all" onclick="filterProducts('all')">Tout voir</button>
+      </div>
+      <div class="products-grid" id="productsGrid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+      <div class="empty-state hidden" id="emptyState">
+        <p>Aucun produit dans cette collection pour le moment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVOIR-FAIRE / PROCESS -->
+  <section class="section" id="savoir-faire">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Notre Savoir-faire</p>
+        <h2 class="section-title reveal reveal-delay-1">Du cuir brut<br />à la pièce parfaite</h2>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal reveal-delay-1">
+          <h3 class="process-step-title">Sélection des cuirs</h3>
+          <p class="process-step-desc">Nous choisissons uniquement des peaux pleine fleur, sélectionnées à la main pour leur grain et leur souplesse exceptionnels.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <h3 class="process-step-title">Coupe & Assemblage</h3>
+          <p class="process-step-desc">Chaque pièce est découpée au patron original WID-ELLE. Les marges sont calculées au millimètre pour une perfection absolue.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <h3 class="process-step-title">Couture à la main</h3>
+          <p class="process-step-desc">La couture au point sellier, réalisée à la main avec des fils cirés, garantit une solidité et une finesse incomparables.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-4">
+          <h3 class="process-step-title">Finitions & Contrôle</h3>
+          <p class="process-step-desc">Tranchants poncés et vernis, quincaillerie laiton posée à la main. Chaque pièce passe un contrôle qualité rigoureux avant livraison.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section section-cream" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-block about-block-1">W</div>
+          <div class="about-block about-block-2">« Le luxe,<br />c'est l'art<br />de prendre<br />son temps. »</div>
+        </div>
+        <div class="about-text reveal reveal-delay-2">
+          <p class="section-eyebrow" style="text-align:left;margin-bottom:16px">Notre Histoire</p>
+          <h2 class="section-title" style="text-align:left;margin-bottom:32px">Née à Tunis,<br />faite pour le monde</h2>
+          <p>WID-ELLE est née d'une passion pour le cuir et d'une conviction : la Tunisie mérite sa propre maison de maroquinerie de luxe. Fondée en 2020, la marque s'impose comme une référence en Afrique du Nord.</p>
+          <p>Chaque sac WID-ELLE est une ode à la féminité et à l'élégance. Nos artisans travaillent avec des techniques héritées de la maroquinerie traditionnelle, revisitées avec une sensibilité contemporaine.</p>
+          <div class="about-stat-grid">
+            <div class="about-stat">
+              <p class="about-stat-number">500+</p>
+              <p class="about-stat-label">Pièces créées</p>
+            </div>
+            <div class="about-stat">
+              <p class="about-stat-number">3</p>
+              <p class="about-stat-label">Collections signature</p>
+            </div>
+            <div class="about-stat">
+              <p class="about-stat-number">100%</p>
+              <p class="about-stat-label">Cuir pleine fleur</p>
+            </div>
+            <div class="about-stat">
+              <p class="about-stat-number">5★</p>
+              <p class="about-stat-label">Satisfaction client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal">Elles nous font confiance</p>
+        <h2 class="section-title reveal reveal-delay-1">Ce qu'elles<br />en pensent</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">« Un sac d'une qualité exceptionnelle. Le cuir est souple, l'odeur enivrante. Je reçois des compliments partout où je vais. »</p>
+          <p class="testimonial-author">— Nour B., Tunis</p>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">« WID-ELLE c'est la preuve qu'on peut trouver du vrai luxe en Tunisie. La finition est parfaite, le service impeccable. »</p>
+          <p class="testimonial-author">— Yasmine M., Sfax</p>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-3">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">« Mon Mini Plum m'accompagne partout. Intemporel, élégant et tellement bien fabriqué. Un investissement que je ne regrette pas. »</p>
+          <p class="testimonial-author">— Leila K., Sousse</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-inner">
+        <p class="section-eyebrow" style="color: #C4A882;">La Lettre WID-ELLE</p>
+        <h2 class="newsletter-title">Avant-premières,<br />éditions limitées, coulisses.</h2>
+        <p class="newsletter-sub">Rejoignez notre cercle privé. Pas de spam, uniquement l'essentiel.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="votre@email.com" class="newsletter-input" id="nlEmail" />
+          <button class="btn-gold" onclick="subscribeNewsletter()">Rejoindre</button>
+        </div>
+        <p class="newsletter-note" id="nlMsg"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-logo">WID-ELLE</p>
+          <p class="footer-tagline">Maroquinerie féminine de luxe.<br />Tunis, Tunisie · Fait main.</p>
+          <div style="display:flex;gap:16px;margin-top:24px">
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-heading">Boutique</p>
+          <a href="#products" class="footer-link">Tous les sacs</a>
+          <a href="#collections" class="footer-link">Collections</a>
+          <a href="#savoir-faire" class="footer-link">Savoir-faire</a>
+          <a href="#about" class="footer-link">Notre histoire</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-heading">Aide</p>
+          <a href="mailto:contact@wid-elle.tn" class="footer-link">Nous contacter</a>
+          <a href="#" class="footer-link">Livraison & Retours</a>
+          <a href="#" class="footer-link">Entretien du cuir</a>
+          <a href="#" class="footer-link">Guide des tailles</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-heading">Contact</p>
+          <p class="footer-link" style="cursor:default">contact@wid-elle.tn</p>
+          <p class="footer-link" style="cursor:default">+216 XX XXX XXX</p>
+          <p class="footer-link" style="cursor:default;margin-top:12px;line-height:1.6">Tunis, Tunisie<br />Lun – Sam · 9h – 19h</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 WID-ELLE. Tous droits réservés. Maroquinerie artisanale tunisienne.</p>
+        <a href="/admin" class="footer-admin-link">Administration</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="product-modal-overlay" id="productDetailOverlay" onclick="closeProductDetail(event)">
+    <div class="product-modal" id="productDetailModal">
+      <button class="product-modal-close" onclick="closeProductDetailDirect()">✕</button>
+      <div class="product-modal-image" id="pdImage">
+        <span class="product-modal-placeholder">W</span>
+      </div>
+      <div class="product-modal-info">
+        <p class="product-modal-collection" id="pdCollection"></p>
+        <h2 class="product-modal-name" id="pdName"></h2>
+        <span class="product-modal-badge" id="pdBadge" style="display:none"></span>
+        <p class="product-modal-price" id="pdPrice"></p>
+        <div class="product-modal-divider"></div>
+        <p class="product-modal-desc" id="pdDesc"></p>
+        <div class="product-modal-features">
+          <p class="product-modal-feature">Cuir pleine fleur sélectionné à la main</p>
+          <p class="product-modal-feature">Coutures au point sellier</p>
+          <p class="product-modal-feature">Quincaillerie en laiton doré</p>
+          <p class="product-modal-feature">Doublure en suède naturel</p>
+        </div>
+        <button class="product-modal-add" id="pdAddBtn" onclick="addToCartFromModal()">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Votre panier</h3>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <p>Votre panier est vide.</p>
+        <button class="btn-primary" onclick="closeCart()">Explorer la boutique</button>
+      </div>
+      <div id="cartItems"></div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">0 TND</span>
+      </div>
+      <button class="btn-primary full-width" onclick="openCheckout()">Commander →</button>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutOverlay" onclick="closeCheckout(event)">
+    <div class="modal" id="checkoutModal">
+      <div class="modal-header">
+        <h3 class="modal-title">Finaliser la commande</h3>
+        <button class="modal-close" onclick="closeCheckoutDirect()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="order-summary" id="orderSummary"></div>
+        <div class="form-section">
+          <h4 class="form-section-title">Vos informations</h4>
+          <div class="form-group">
+            <label class="form-label">Nom complet *</label>
+            <input type="text" class="form-input" id="coName" placeholder="Votre nom complet" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone *</label>
+            <input type="tel" class="form-input" id="coPhone" placeholder="+216 XX XXX XXX" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Adresse de livraison *</label>
+            <textarea class="form-input" id="coAddress" rows="3" placeholder="Rue, ville, gouvernorat, code postal"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes (optionnel)</label>
+            <textarea class="form-input" id="coNotes" rows="2" placeholder="Instructions particulières..."></textarea>
+          </div>
+          <p class="form-error hidden" id="coError"></p>
+          <button class="btn-primary full-width" id="coSubmit" onclick="submitOrder()">Confirmer la commande</button>
+          <p style="text-align:center;font-size:0.75rem;color:var(--text-light);margin-top:16px">
+            🔒 Vos données sont sécurisées et ne seront jamais partagées.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" id="successOverlay">
+    <div class="modal modal-sm">
+      <div class="modal-success-icon">✓</div>
+      <h3 class="modal-title text-center">Commande confirmée !</h3>
+      <p class="modal-success-text">Merci pour votre confiance. Nous vous contacterons très bientôt pour confirmer votre livraison.</p>
+      <p class="order-ref" id="orderRef"></p>
+      <button class="btn-primary full-width" onclick="closeSuccess()">Continuer mes achats</button>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- STORE TOAST -->
+  <div class="store-toast" id="storeToast"></div>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p class="cookie-text">Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre <a href="#">politique de confidentialité</a>.</p>
+    <button class="cookie-accept" onclick="acceptCookies()">Accepter</button>
+  </div>
+
+  <script src="/js/store.js"></script>
+</body>
+</html>
