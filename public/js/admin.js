@@ -471,27 +471,44 @@ function renderOrdersTable() {
         <th>Client</th>
         <th>Téléphone</th>
         <th>Articles</th>
+        <th>Notes</th>
         <th>Total</th>
         <th>Statut</th>
         <th>Date</th>
         <th>Actions</th>
       </tr></thead>
       <tbody>
-        ${sorted.map(o => `
-          <tr>
-            <td style="font-family:monospace;font-size:0.72rem">${esc(o.id)}</td>
-            <td>${esc(o.customer?.name || '—')}</td>
-            <td>${esc(o.customer?.phone || '—')}</td>
-            <td>${(o.items || []).length}</td>
-            <td><strong>${o.total} ${o.currency || 'TND'}</strong></td>
-            <td>${statusBadge(o.status)}</td>
-            <td>${formatDate(o.createdAt)}</td>
-            <td>
-              <button class="action-btn action-status" onclick="openOrderStatus('${o.id}')">Statut</button>
-              <button class="action-btn action-delete" onclick="deleteOrder('${o.id}')">Supprimer</button>
-            </td>
-          </tr>
-        `).join('')}
+        ${sorted.map(o => {
+          const customerNotes = (o.customer?.notes || o.notes || '').trim();
+          const items = (o.items || []);
+          const itemsText = items.length
+            ? items.map(it => {
+                const pid = it.id || it.productId;
+                const prod = pid ? products.find(p => p.id === pid) : undefined;
+                const name = prod?.name || it.name || pid || 'Article';
+                const qty = it.qty ?? it.quantity ?? 1;
+                const price = it.price ?? prod?.price ?? 0;
+                return `${esc(name)} × ${qty} (${price} ${o.currency || 'TND'})`;
+              }).join('<br/>')
+            : '—';
+
+          return `
+            <tr>
+              <td style="font-family:monospace;font-size:0.72rem">${esc(o.id)}</td>
+              <td>${esc(o.customer?.name || '—')}</td>
+              <td>${esc(o.customer?.phone || '—')}</td>
+              <td>${itemsText}</td>
+              <td>${customerNotes ? esc(customerNotes) : '—'}</td>
+              <td><strong>${o.total} ${o.currency || 'TND'}</strong></td>
+              <td>${statusBadge(o.status)}</td>
+              <td>${formatDate(o.createdAt)}</td>
+              <td>
+                <button class="action-btn action-status" onclick="openOrderStatus('${o.id}')">Statut</button>
+                <button class="action-btn action-delete" onclick="deleteOrder('${o.id}')">Supprimer</button>
+              </td>
+            </tr>
+          `;
+        }).join('')}
       </tbody>
     </table>
   `;
